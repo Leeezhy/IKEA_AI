@@ -19,6 +19,7 @@ export default function SurveyPage() {
       question: '',
     },
   ]);
+  const [pdfFile, setPdfFile] = useState<File | null>(null);
 
   useEffect(() => {
     const persona = localStorage.getItem('persona');
@@ -68,6 +69,25 @@ export default function SurveyPage() {
         </div>
 
         <form onSubmit={handleSubmit} className="space-y-10">
+          <div className="bg-white rounded-xl border border-[#B7D0E2] p-6 mb-4 flex flex-col sm:flex-row items-center gap-4">
+            <label
+              htmlFor="pdf-upload"
+              className="block text-base font-semibold text-[#0058A3] mb-1 min-w-fit"
+            >
+              Upload PDF (optional)
+            </label>
+            <input
+              id="pdf-upload"
+              type="file"
+              accept=".pdf"
+              onChange={e => setPdfFile(e.target.files?.[0] || null)}
+              className="block w-full sm:w-auto border border-[#B7D0E2] rounded-lg px-3 py-2 text-[#0058A3] focus:outline-none focus:ring-2 focus:ring-[#FFD200] focus:border-[#0058A3] transition"
+            />
+            {pdfFile && (
+              <span className="text-sm text-gray-500 mt-1">Selected: {pdfFile.name}</span>
+            )}
+          </div>
+
           {questions.map((question) => (
             <div key={question.id} className="bg-white shadow-lg rounded-xl p-8 border border-[#E6E6E6] mb-4">
               <div className="space-y-6">

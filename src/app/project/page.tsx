@@ -20,12 +20,14 @@ export default function ProjectPage() {
     needs: [''],
     description: '',
   });
+  const [personaCount, setPersonaCount] = useState(1);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Store data in localStorage
     localStorage.setItem('projectInfo', JSON.stringify(projectInfo));
     localStorage.setItem('targetGroup', JSON.stringify(targetGroup));
+    localStorage.setItem('personaCount', String(personaCount));
     // Navigate to persona page
     router.push('/persona');
   };
@@ -146,6 +148,21 @@ export default function ProjectPage() {
                   rows={3}
                   className="mt-1 block w-full rounded-lg border-2 border-[#B7D0E2] focus:border-[#0058A3] focus:ring-2 focus:ring-[#FFD200] px-3 py-2 text-lg transition"
                   placeholder="Describe the characteristics, lifestyle, preferences, and other details of your target group..."
+                  required
+                />
+              </div>
+              <div>
+                <label htmlFor="personaCount" className="block text-base font-semibold text-[#0058A3] mb-1">
+                  Number of Personas to Generate
+                </label>
+                <input
+                  type="number"
+                  id="personaCount"
+                  min={1}
+                  max={10}
+                  value={personaCount}
+                  onChange={e => setPersonaCount(Number(e.target.value))}
+                  className="mt-1 block w-32 rounded-lg border-2 border-[#B7D0E2] focus:border-[#0058A3] focus:ring-2 focus:ring-[#FFD200] px-3 py-2 text-lg transition"
                   required
                 />
               </div>

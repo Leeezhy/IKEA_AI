@@ -13,6 +13,7 @@ export default function PersonaPage() {
     try {
       const projectInfo = JSON.parse(localStorage.getItem('projectInfo') || '{}');
       const targetGroup = JSON.parse(localStorage.getItem('targetGroup') || '{}');
+      const personaCount = Number(localStorage.getItem('personaCount')) || 1;
 
       if (!projectInfo.name || !targetGroup.demographics.age) {
         router.push('/project');
@@ -24,7 +25,7 @@ export default function PersonaPage() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ projectInfo, targetGroup }),
+        body: JSON.stringify({ projectInfo, targetGroup, personaCount }),
       });
 
       if (!response.ok) {
